@@ -1,6 +1,14 @@
 from unittest import TestCase
 
 
+# a pythonic solution
+def fib_py(n):
+    x, y = 0, 1
+    for i in range(n - 1):
+        x, y = y, x + y
+    return y
+
+
 # classic recursive solution
 def fib_classic(n):
     if n in [1, 2]:
@@ -15,7 +23,7 @@ def fib_recursive_with_memo(n):
     def _fib(x):
         if memo[x]:
             return memo[x]
-        if x in [1, 2]:
+        elif x in [1, 2]:
             result = 1
         else:
             result = _fib(x - 1) + _fib(x - 2)
@@ -38,6 +46,12 @@ def fib_bottom_up(n):
 
 
 class FibTest(TestCase):
+
+    def test_fib_py(self):
+        self.assertEqual(2, fib_py(3))
+        self.assertEqual(5, fib_py(5))
+        self.assertEqual(8, fib_py(6))
+        self.assertEqual(280571172992510140037611932413038677189525, fib_py(200))
 
     def test_classic(self):
         self.assertEqual(2, fib_classic(3))
